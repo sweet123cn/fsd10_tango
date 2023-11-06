@@ -6,6 +6,7 @@ require "dbConnection.php";
 $errorMessages = "";
 $recipeId = "";
 $txtTitle = "";
+$txtDescription="";
 $txtIngredients = "";
 $fileImage = "";
 $txtInstruction = "";
@@ -24,6 +25,7 @@ if(array_key_exists('recipe',$_GET)){
   $recipeId = $data['recipe_id'];
 $txtTitle = $data['recipe_name'];
 $txtIngredients = $data['material_description'];
+$txtDescription=$data['description'];
 $fileImage = $data['recipe_image_path'];
 $txtInstruction =$data['step_instruction'];
 $userId=$data['user_id'];
@@ -43,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
 	if (validateIsEmptyData($_POST, 'txtIngredients')) $errorMessages .= "Ingredients is required <br>";
 	else $txtIngredients = $_POST['txtIngredients'];
+  if (validateIsEmptyData($_POST, 'txtDescription')) $errorMessages .= "Ingredients is required <br>";
+	else $txtDescription = $_POST['txtDescription'];
 
 	if (validateIsEmptyData($_POST, 'txtInstruction')) $errorMessages .= "Instruction is required <br>";
 	else $txtInstruction = $_POST['txtInstruction'];
@@ -76,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     $data = [
 			"title" => $txtTitle, 
 			"ingredients" => $txtIngredients,
+      "description"=>$txtDescription,
 			"instruction" => $txtInstruction,
 			"imagepath" => $fileImage,
       "userid" =>$userId,
@@ -90,10 +95,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     // echo "</pre>";
     if ($recipeId == ""){
 			// no item id was found = add new row to the database
-			$sql = "INSERT INTO recipe (recipe_name, material_description, step_instruction, user_id, recipe_image_path, created_datetime, meal_id,cuisine_id) VALUES (:title, :ingredients, :instruction,:userid, :imagepath, :utime, :meal_id, :cuisine_id);";
+			$sql = "INSERT INTO recipe (recipe_name, material_description,description, step_instruction, user_id, recipe_image_path, created_datetime, meal_id,cuisine_id) VALUES (:title, :ingredients, :description,:instruction,:userid, :imagepath, :utime, :meal_id, :cuisine_id);";
 		}else{
 			// update existing row
-			$sql = "UPDATE recipe SET recipe_name = :title, material_description = :ingredients, step_instruction = :instruction,user_id= :userid, meal_id = :meal_id, cuisine_id=:cuisine_id, recipe_image_path = :imagepath, updated_datetime = :utime WHERE recipe_id = :pid";
+			$sql = "UPDATE recipe SET recipe_name = :title, description=:description, material_description = :ingredients, step_instruction = :instruction,user_id= :userid, meal_id = :meal_id, cuisine_id=:cuisine_id, recipe_image_path = :imagepath, updated_datetime = :utime WHERE recipe_id = :pid";
 
 			$data['pid'] = $recipeId;
 			
@@ -132,7 +137,11 @@ include "sidebar.php";
         <input id="txtTitle" name="txtTitle" type="text" required="required" class="form-control" value="<?=$txtTitle; ?>">
       </div>
       <div class="form-group">
-        <label for="txtIngredients" class="control-label">ingredients</label>
+        <label for="txtDescription" class="control-label">Description</label>
+        <textarea id="txtDescription" name="txtDescription" cols="40" rows="1" required="required" class="form-control"><?=$txtDescription; ?></textarea>
+      </div>
+      <div class="form-group">
+        <label for="txtIngredients" class="control-label">Materials</label>
         <textarea id="txtIngredients" name="txtIngredients" cols="40" rows="2" required="required" class="form-control"><?=$txtIngredients; ?></textarea>
       </div>
       <div class="form-group">
@@ -166,7 +175,7 @@ include "sidebar.php";
         </select>
       </div>
       <div class="form-group">
-        <label for="selIngredient" class="control-label">Cateogry</label>
+        <label for="selIngredient" class="control-label">Ingredients</label>
         <select id="selIngredient" name="selIngredients[]" multiple size="3" required="required" class="select form-control">
           <option value="">-----</option>
           <?php foreach($allIngredients as $ingredient_id => $ingredient_name){ 
