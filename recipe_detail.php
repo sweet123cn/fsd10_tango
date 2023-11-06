@@ -36,7 +36,7 @@ if (empty($recipe_item)) {
 }
 
 //get review_id info from database
-$review_ids = DB::query( "SELECT review_id FROM fsd10_tango.recipe_review WHERE recipe_id = %i", $recipe_id );
+$review_ids = DB::query( "SELECT review_id FROM fsd10_tango.recipe_review WHERE recipe_id = %i ORDER BY recipe_review_id DESC", $recipe_id );
 
 if (empty($review_ids)) {
     $detail_logger->notice("No review in database for recipe_id: " . $recipe_id);

@@ -60,7 +60,7 @@ include "includes/header.php";
 <div class="col-md-6 right-part">
  <div class="row align-items-center">
   <div class="mb-4">
-  <h3>Tango</h3>
+  <h3>PANTRYPAGE</h3>
   <p id="slogan">Only delicious food and love cannot be let down</p>
   </div>
   <div class="input-group mb-3">

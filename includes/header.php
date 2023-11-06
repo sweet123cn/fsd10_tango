@@ -5,6 +5,7 @@ if (isset($_POST['btnSearch'])) {
     if ($_POST['search_string'] != "" && $_POST['search_string'] != "Search for a recipe?" && isset($_POST['search_string'])) { 
     $_SESSION['search_string'] = $_POST['search_string'];
     header("Location: ../index.php");
+ }
 }
 ?>
 <!DOCTYPE html>
@@ -114,7 +115,7 @@ if (isset($_POST['btnSearch'])) {
       id="offcanvasExample"
     >
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title">Tango</h5>
+        <h5 class="offcanvas-title">PANTRYPAGE</h5>
         <button
           type="button"
           class="btn-close text-reset text-bg-light"
@@ -128,19 +129,16 @@ if (isset($_POST['btnSearch'])) {
           <li class="nav-item">
             <a
               class="nav-link login-btn"
-              href="#"
-              <a
-              class="nav-link login-btn"
-              href="#"
+              href="login.php"
               data-bs-toggle="modal"
               data-bs-target="#loginModal"
               >Login</a
             >
           </li>
-          <li class="nav-item"><a class="nav-link" href="#">Signup</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
           <hr />
-          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="aboutus.php">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
         </ul>
       </div>
     </div>
