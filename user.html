@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="container rounded bg-white mt-5 mb-5">
+      <div class="row">
+        <div class="col-md-3 border-right">
+          <div
+            class="d-flex flex-column align-items-center text-center p-3 py-5"
+          >
+            <img
+              class="rounded-circle mt-5"
+              width="150px"
+              src="/img/manager.png"
+            /><span class="font-weight-bold">Xingh</span
+            ><span class="text-black-50">xingr@mail.com.my</span><span> </span>
+          </div>
+          <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+              <a
+                href="#"
+                class="nav-link link-dark text-center border"
+                aria-current="page"
+              >
+                My recipes
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link link-dark text-center border">
+                My favorates
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link link-dark text-center border">
+                <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg> -->
+                Profile setting
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link link-dark text-center border">
+                <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg> -->
+                Create a recipes
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link link-dark text-center border">
+                <!-- <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg> -->
+                Log out
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="container col-md-9 border-right mt-5">
+          <!-- <div class="d-flex justify-content-between align-items-center mb-3"> -->
+          <div>
+            <h4 class="text-right">Profile Settings</h4>
+          </div>
+          <form
+            class="p-3 py-5"
+            method="post"
+            enctype="multipart/form-data"
+            action="profilesetting.php"
+          >
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <label class="labels">userName</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  placeholder="first name"
+                  value=""
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="labels">Phone Number</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  value=""
+                  placeholder="phone number"
+                />
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="labels">Country</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  placeholder="country"
+                  value=""
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="labels">State/Region</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  value=""
+                  placeholder="state"
+                />
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="labels">Email</label
+                ><input
+                  type="email"
+                  class="form-control"
+                  placeholder="enter your email"
+                  value=""
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="labels">Password</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  placeholder="enter your password"
+                  value=""
+                />
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="labels">New password</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  placeholder="enter new password"
+                  value=""
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="labels">Confirm Password</label
+                ><input
+                  type="text"
+                  class="form-control"
+                  placeholder="enter again new password"
+                  value=""
+                />
+              </div>
+            </div>
+            <div class="col-md-12 mt-3">
+              <label class="labels">Update your image</label
+              ><input type="file" class="form-control" value="" />
+            </div>
+            <div class="mt-5 text-center">
+              <button class="btn btn-primary profile-button" type="button">
+                Save Profile
+              </button>
+            </div>
+          </form>
+        
+          <section id="recipes">
+          <div>
+            <h4 class="text-right">Profile Settings</h4>
+          </div>
+      <div class="row">
+        <div class="col-md-6 portfolio-item">
+          <a href="#">
+            <img
+              class="img-responsive"
+              style="height: 250px; width: 100%"
+              src="http://picsum.photos/700/400?1"
+              alt
+            />
+          </a>
+          <h3>
+            <a href="#">Project Title</a
+            ><span class="small"> January 12, 2023</span>
+          </h3>
+          <p>
+            Upon yielding, kind sea subdue very seed sixth them lesser one
+            lesser there earth days were multiply so sixth gathering fifth that
+            man fowl made.
+          </p>
+        </div>
+        <div class="col-md-6 portfolio-item">
+          <a href="#">
+            <img
+              class="img-responsive"
+              style="height: 250px; width: 100%"
+              src="http://picsum.photos/700/400?2"
+              alt
+            />
+          </a>
+          <h3>
+            <a href="#">Project Title</a
+            ><span class="small"> January 12, 2023</span>
+          </h3>
+          <p>
+            Upon yielding, kind sea subdue very seed sixth them lesser one
+            lesser there earth days were multiply so sixth gathering fifth that
+            man fowl made.
+          </p>
+        </div>
+
+        <div class="col-md-6 portfolio-item">
+          <a href="#">
+            <img
+              class="img-responsive"
+              style="height: 250px; width: 100%"
+              src="http://picsum.photos/700/400?3"
+              alt
+            />
+          </a>
+          <h3>
+            <a href="#">Project Title</a
+            ><span class="small"> January 12, 2023</span>
+          </h3>
+          <p>
+            Upon yielding, kind sea subdue very seed sixth them lesser one
+            lesser there earth days were multiply so sixth gathering fifth that
+            man fowl made.
+          </p>
+        </div>
+        <div class="col-md-6 portfolio-item">
+          <a href="#">
+            <img
+              class="img-responsive"
+              style="height: 250px; width: 100%"
+              src="http://picsum.photos/700/400?4"
+              alt
+            />
+          </a>
+          <h3>
+            <a href="#">Project Title</a
+            ><span class="small"> January 12, 2023</span>
+          </h3>
+          <p>
+            Upon yielding, kind sea subdue very seed sixth them lesser one
+            lesser there earth days were multiply so sixth gathering fifth that
+            man fowl made.
+          </p>
+        </div>
+
+        <div class="col-md-6 portfolio-item">
+          <a href="#">
+            <img
+              class="img-responsive"
+              style="height: 250px; width: 100%"
+              src="http://picsum.photos/700/400?5"
+              alt
+            />
+          </a>
+          <h3>
+            <a href="#">Project Title</a
+            ><span class="small"> January 12, 2023</span>
+          </h3>
+          <p>
+            Upon yielding, kind sea subdue very seed sixth them lesser one
+            lesser there earth days were multiply so sixth gathering fifth that
+            man fowl made.
+          </p>
+        </div>
+        <div class="col-md-6 portfolio-item">
+          <a href="#">
+            <img
+              class="img-responsive"
+              style="height: 250px; width: 100%"
+              src="http://picsum.photos/700/400?6"
+              alt
+            />
+          </a>
+          <h3>
+            <a href="#">Project Title</a
+            ><span class="small"> January 12, 2023</span>
+          </h3>
+          <p>
+            Upon yielding, kind sea subdue very seed sixth them lesser one
+            lesser there earth days were multiply so sixth gathering fifth that
+            man fowl made.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="creat recipe" class="mt-5">
+      <div>
+        <h4 class="text-right">Profile Settings</h4>
+      </div>
+          <div class="row">
+            <form class="col-md-10 ">
+              <div class="form-group">
+                <label for="txtTitle" class="control-label">Title</label>
+                <input
+                  id="txtTitle"
+                  name="txtTitle"
+                  type="text"
+                  required="required"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="txtBody" class="control-label">Body</label>
+                <textarea
+                  id="txtBody"
+                  name="txtBody"
+                  cols="40"
+                  rows="5"
+                  required="required"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="fileImage" class="control-label">Image</label>
+                <input
+                  id="fileImage"
+                  name="fileImage"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="txtCaption" class="control-label">Caption</label>
+                <input
+                  id="txtCaption"
+                  name="txtCaption"
+                  type="text"
+                  required="required"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="selCategory" class="control-label">Category</label>
+                <select
+                  id="selCategory"
+                  name="selCategory"
+                  required="required"
+                  class="select form-control"
+                >
+                  <option value="">-----</option>
+                  <option value="1">Java</option>
+                  <option value="2">HTML</option>
+                  <option value="3">PHP</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button name="btnSubtmi" type="submit" class="btn btn-primary">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </section>
+     
+    </div>
+    </div>
+    <!-- --- -->
+  </body>
+</html>

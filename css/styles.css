@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+.sectionpadding {
+  padding: 20px 0;
+}
+#slogan {
+  color: rgb(47, 124, 47);
+  font-family: "Pacifico";
+}
+.navbar {
+  background-color: rgba(242, 110, 86, 255);
+}
+.body {
+  background-color: #fff8dc;
+}
+
+.nav-link.active {
+  color: rgba(252, 171, 23, 255);
+}
