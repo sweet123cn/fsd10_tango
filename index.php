@@ -150,16 +150,37 @@ if (!empty($conditions)) {
 
     // Handle case where no results were found...
     if (empty($recipe_items)) {
-        echo '
-        <div class="alert alert-primary" role="alert">
-            No recipes meet the search criteria,list all recipes.
-        </div>
-        ';
         $recipe_items = DB::query("SELECT * FROM fsd10_tango.recipe");
+        $_SESSION["home_filter_values"]["meal_selected"] = [
+            "id" => "",
+            "name" => "Meal",
+        ];
+        $_SESSION["home_filter_values"]["ingredient_selected"] = [
+            "id" => "",
+            "name" => "Ingredient",
+        ];
+        $_SESSION["home_filter_values"]["cuisine_selected"] = [
+            "id" => "",
+            "name" => "Cuisine",
+        ];
+        $_SESSION["search_string"] = "";
     }
 } else {
     // Handle case where no conditions were provided...
     $recipe_items = DB::query("SELECT * FROM fsd10_tango.recipe");
+        $_SESSION["home_filter_values"]["meal_selected"] = [
+            "id" => "",
+            "name" => "Meal",
+        ];
+        $_SESSION["home_filter_values"]["ingredient_selected"] = [
+            "id" => "",
+            "name" => "Ingredient",
+        ];
+        $_SESSION["home_filter_values"]["cuisine_selected"] = [
+            "id" => "",
+            "name" => "Cuisine",
+        ];
+        $_SESSION["search_string"] = "";
 }
 include "includes/header.php";
 $currentNav == "home"

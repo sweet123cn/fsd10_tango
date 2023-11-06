@@ -67,6 +67,9 @@ if (isset($_POST['btnSearch'])) {
                     <input
                         class="form-control"
                         type="search"
+                        <?php if (isset($_SESSION['search_string']) && $_SESSION['search_string'] != "") { ?>
+                            value="<?= $_SESSION['search_string'] ?>"
+                        <?php } ?>
                         placeholder="Search for a recipe?"
                         aria-label="Search"
                         name="search_string"
