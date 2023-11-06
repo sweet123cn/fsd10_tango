@@ -22,28 +22,28 @@
             <li class="nav-item">
               <a
                 href="myrecipes.php?userName=<?=$_SESSION['userName'];?>"
-                class="nav-link link-dark text-center border <?php if ($currentNav == "showrecipes") echo "active"; ?>"
+                class="nav-link bg-warning text-center border-left border-right rounded-0 <?php if ($currentNav == "showrecipes") echo "active"; ?>"
               >
                 My recipes
               </a>
             </li>
             <li>
-              <a href="savedrecipes.php?userName=<?=$_SESSION['userName'];?>" class="nav-link link-dark text-center border <?php if ($currentNav == "likerecipes") echo "active"; ?>">
+              <a href="savedrecipes.php?userName=<?=$_SESSION['userName'];?>" class="nav-link bg-warning text-center border-left border-right rounded-0 <?php if ($currentNav == "likerecipes") echo "active"; ?>">
                 My favorites
               </a>
             </li>
             <li>
-              <a href="profilesetting.php?user=<?=$_SESSION['user_id'];?>" class="nav-link link-dark text-center border <?php if ($currentNav == "profileupdate") echo "active"; ?>">
+              <a href="profilesetting.php?user=<?=$_SESSION['user_id'];?>" class="nav-link bg-warning text-center border-left border-right rounded-0 <?php if ($currentNav == "profileupdate") echo "active"; ?>">
                 Profile setting
               </a>
             </li>
             <li>
-              <a href="createRecipe.php" class="nav-link link-dark text-center border <?php if ($currentNav == "add") echo "active"; ?>">
+              <a href="createRecipe.php" class="nav-link bg-warning text-center border-left border-right rounded-0 <?php if ($currentNav == "add") echo "active"; ?>">
                 Create a recipe
               </a>
             </li>
             <li>
-              <a href="logout.php" class="nav-link link-dark text-center border">    
+              <a href="logout.php" class="nav-link bg-warning text-center border-left border-right rounded-0">    
                 Log out
               </a>
             </li>

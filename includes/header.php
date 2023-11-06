@@ -134,9 +134,7 @@ if (isset($_POST['btnSearch'])) {
           <li class="nav-item">
             <a
               class="nav-link login-btn"
-              href="login.php"
-              data-bs-toggle="modal"
-              data-bs-target="#loginModal"
+              href="../login.php"
               >Login</a
             >
           </li>
