@@ -4,7 +4,7 @@ if (isset($_POST['btnSearch'])) {
     // when click search icon, turn to index.php
     if ($_POST['search_string'] != "" && $_POST['search_string'] != "Search for a recipe?" && isset($_POST['search_string'])) { 
     $_SESSION['search_string'] = $_POST['search_string'];
-    header("Location: ../index.php");
+    header("Location: index.php");
  }
 }
 ?>
