@@ -6,7 +6,7 @@ $errorMessages="";
 $userName="";
 $userEmail="";
 $pword="";
-$fileImage="img/download.png";
+
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
 
@@ -31,11 +31,10 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
       $data=[
         "user_name"=>$userName,
     "email"=>$userEmail,
-    "fileImage"=>$fileImage,
     "upassword"=>password_hash($pword, PASSWORD_DEFAULT),
     "created_date"=>date("Y-m-d")
     ];
-    $sql = "INSERT INTO users (user_name, email, user_password, profile_image_path,created_datetime) VALUES (:user_name, :email, :upassword,:fileImage,:created_date);";
+    $sql = "INSERT INTO users (user_name, email, user_password, created_datetime) VALUES (:user_name, :email, :upassword,:created_date);";
     $query=$db->prepare($sql);
 $query->execute($data);
 header("location: login.php");
