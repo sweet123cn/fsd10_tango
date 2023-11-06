@@ -66,8 +66,8 @@ $home_logger->pushHandler( new StreamHandler('./logs/home.log') );
 $detail_logger->pushHandler( new StreamHandler('./logs/detail.log') );
  
 //test add logger to dbs
-$home_logger->info("this is a test message: logger from dbConnection.php");
-$detail_logger->info("this is a test message: logger from dbConnection.php");
+//$home_logger->info("this is a test message: logger from dbConnection.php");
+//$detail_logger->info("this is a test message: logger from dbConnection.php");
  
 
 

@@ -36,15 +36,14 @@ if (!isset($_SESSION["home_filter_values"])) {
     ];
 }
 
-if (!isset($_SESSION["home_search_string"])) {
-    $_SESSION["home_search_string"] = "Search for recipes...";
+if (!isset($_SESSION["search_string"])) {
+    $_SESSION["search_string"] = "Search for a recipe?";
 }
 
 //default image path
 $defaultImagePath ="https://www.budgetbytes.com/wp-content/uploads/2013/07/How-to-Calculate-Recipe-Costs-H.jpg";
 
 //set default value for meal, cuisine and ingredient, search_string
-$search_string = "";
 $meal_selected = "";
 $ingredient_selected = "";
 $cuisine_selected = "";
@@ -90,7 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $meal_name = "";
         $ingredient_name = "";
         $cuisine_type = "";
-        $search_string = "";
         $_SESSION["home_filter_values"]["meal_selected"] = [
             "id" => "",
             "name" => "Meal",
@@ -103,10 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "id" => "",
             "name" => "Cuisine",
         ];
-        $_SESSION["home_search_string"] = "";
-    } elseif (isset($_POST["btnSearch"])) {
-        $search_string = $_POST["search_string"];
-        $_SESSION["home_search_string"] = $search_string;
+        $_SESSION["search_string"] = "";
     }
 }
 
@@ -137,12 +132,12 @@ if (!empty($_SESSION["home_filter_values"]["ingredient_selected"]["id"])) {
         " )";
 }
 
-if (!empty($_SESSION["home_search_string"])) {
+if (!empty($_SESSION["search_string"]) && $_SESSION["search_string"] != "Search for a recipe?") {
     $conditions[] =
         "recipe_id IN (SELECT DISTINCT recipe_id FROM fsd10_tango.recipe WHERE recipe_name LIKE '%" .
-        $_SESSION["home_search_string"] .
+        $_SESSION["search_string"] .
         "%' OR description LIKE '%" .
-        $_SESSION["home_search_string"] .
+        $_SESSION["search_string"] .
         "%' )";
 }
 
@@ -155,7 +150,11 @@ if (!empty($conditions)) {
 
     // Handle case where no results were found...
     if (empty($recipe_items)) {
-        
+        echo '
+        <div class="alert alert-primary" role="alert">
+            No recipes meet the search criteria,list all recipes.
+        </div>
+        ';
         $recipe_items = DB::query("SELECT * FROM fsd10_tango.recipe");
     }
 } else {

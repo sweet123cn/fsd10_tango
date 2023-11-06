@@ -1,5 +1,11 @@
 <?php
 global $userIsLoggedIn,$currentNav;
+if (isset($_POST['btnSearch'])) {
+    // when click search icon, turn to index.php
+    if ($_POST['search_string'] != "" && $_POST['search_string'] != "Search for a recipe?" && isset($_POST['search_string'])) { 
+    $_SESSION['search_string'] = $_POST['search_string'];
+    header("Location: ../index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,15 +61,17 @@ global $userIsLoggedIn,$currentNav;
         </a>
 
         <div class="d-flex flex-grow-1">
-            <form class="form-inline w-100">
+            <form class="form-inline w-100" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <div class="input-group w-100">
                     <input
                         class="form-control"
                         type="search"
                         placeholder="Search for a recipe?"
                         aria-label="Search"
+                        name="search_string"
+                        id="search_string"
                     />
-                    <button class="btn btn-outline-success search-btn" type="submit">
+                    <button class="btn btn-outline-success search-btn" type="submit" id="btnSearch" name="btnSearch">
                         🔍
                     </button>
                 </div>
