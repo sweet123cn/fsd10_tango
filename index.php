@@ -1,12 +1,7 @@
-
-
-
 <?php
-
 
 // automatically load any library required from composer
 require "dbConnection.php"; //connect to db
-
 
 $user_id = "";
 
