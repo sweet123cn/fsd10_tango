@@ -81,7 +81,7 @@ include "includes/header.php";
             <input id="txtPass" name="txtPass" class="form-control form-control-lg bg-light fs-6" type="password" required="required" class="form-control">
         </div>
         <div class="form-group mb-3">
-            <button name="btnSubmit" type="submit" class="btn btn-lg btn-warning w-100 fs-6">Submit</button>
+            <button name="btnSubmit" type="submit" class="btn btn-lg btn-warning w-100 fs-6">Login</button>
         </div>
     </form>
   </div>
