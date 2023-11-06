@@ -58,7 +58,7 @@ if (isset($_POST['btnSearch'])) {
             <span class="navbar-toggler-icon"></span>
           </button>
 
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="http://tangowebapp.azurewebsites.net/backend/views/home.php">
             <span class="bi bi-flower3"></span>
             PANTRYPAGE
         </a>

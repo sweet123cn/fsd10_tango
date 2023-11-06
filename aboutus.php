@@ -91,7 +91,7 @@ include "includes/header.php";
                 <h2>Our Story</h2>
                 <h4 id="slogan">Only delicious food and love cannot be let down</h4>
                 <p>
-                Founded in 2023 in Montreal, Tango changed the food world by sharing recipes and cooking tips, while celebrating the expertise of home cooks online. Since then, Tango has become the world's famous community-driven food brand, providing trusted resources to more than 60 million home cooks each month.
+                Founded in 2023 in Montreal, PANTRYPAGE changed the food world by sharing recipes and cooking tips, while celebrating the expertise of home cooks online. Since then, PANTRYPAGE has become the world's famous community-driven food brand, providing trusted resources to more than 60 million home cooks each month.
                 </p>
                 <a href="#" class="btn btn-warning">Learn More</a>
               </div>
