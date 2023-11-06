@@ -1,2 +1,3 @@
 *.log
 
+vendor/composer/installed.php
