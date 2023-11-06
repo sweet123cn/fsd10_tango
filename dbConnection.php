@@ -42,7 +42,7 @@ require 'vendor/autoload.php';
 
 
 
-//use meekro library to connect to mysql db
+//use meekro library to connect to Microsoft MySQL flexibile server
 DB::$host = "fsd10-demo-mysql-admin.mysql.database.azure.com";
 DB::$user = "fsduser";
 DB::$password = "myDBpw";

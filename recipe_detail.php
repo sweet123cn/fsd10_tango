@@ -4,27 +4,31 @@ require "dbConnection.php"; //connect to db
 
 $defaultImagePath = "https://www.budgetbytes.com/wp-content/uploads/2013/07/How-to-Calculate-Recipe-Costs-H.jpg";
 
+//initialize variables
 $recipe_id = "";
 $recipe_item = "";
 $user_id = "";
 
+// if the GET method does NOT have a key named recipe_id, set the default recipe_id to 1
 if (!isset($_GET["recipe_id"])) {
-    // the GET method does NOT have a key named item
     $detail_logger->warning("There is not recipe_id in GET method!");
+    //check whether the recipe_id is set in session variable, if not set the default recipe_id to 1
     if (!isset($_SESSION["recipe_id"])) {
         $detail_logger->warning("There is not recipe_id in {$_SESSION["recipe_id"]}!");
         $recipe_id = 1;
         $detail_logger->info("Set default recipe_id: " . $recipe_id);
+    
     } else {
         $recipe_id = $_SESSION["recipe_id"];
-    }  
+    } 
+// if the GET method has a key named recipe_id, set the recipe_id to the value 
 } else {
     $recipe_id = $_GET["recipe_id"];
 }
 
 $detail_logger->info("recipe_id: " . $recipe_id);
 
-//set session variable
+//save the recipe_id to session variable
 $_SESSION["recipe_id"] = $recipe_id;
 
 //get recipe info from database
@@ -68,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'review_id' => $review_id,
                     'description' => ''
         ));
-        //update rating in recipe table
+        //calculate the new rating value
         $review_ids = DB::query("SELECT review_id FROM fsd10_tango.recipe_review WHERE recipe_id = %i",$recipe_id);
         
         $rating_sum = 0;
@@ -77,11 +81,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $rating_sum = $rating_sum + $rating["rating"];
         }
         $rating_avg = round($rating_sum / count($review_ids));
+
+        //update the rating value in recipe table
         DB::update('fsd10_tango.recipe', array('rating' => $rating_avg), "recipe_id = %i", $recipe_id);
     }
 
+    //check whether the user is logged in
     if (isset($user_id) && !empty($user_id)) {
-        //add favorite recipe to database
+        //add favorite recipe flag to database
         if (isset($_POST["btnAddFavorite"])) {
             DB::insert('fsd10_tango.favorite_recipe', array(
             'recipe_id' => $recipe_id,
@@ -89,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ));
         }
 
-        //remove favorite recipe from database
+        //remove favorite recipe flag from database
         if (isset($_POST["btnRemoveFavorite"])) {
             DB::delete('fsd10_tango.favorite_recipe', "recipe_id = %i AND user_id = %i", $recipe_id, $user_id);
         }
@@ -116,9 +123,10 @@ include "includes/header.php";
     <div class="row justify-content-center mt-3 mb-3">
         <div class="col-12 text-center">
             <div class="card">
+                <!-- display recipe image -->
                 <img src="<?= $recipe_item["recipe_image_path"] ?>" class="image-fluid" alt="recipe image">
+                <!-- display recipe rating -->
                 <div class="card-body">
-                    
                     <?php for($i=1;$i<=5;$i++) {
                         if($i<=$recipe_item["rating"]) {
                             echo '<i class="bi bi-star-fill checked" style="color: orange"></i>';
@@ -129,6 +137,7 @@ include "includes/header.php";
                     <br>
                     <?php
                         $favorite_falg = "";
+                        // if user logged in, display favorite recipe icon
                         if (isset($user_id) && !empty($user_id)) {
                             $favorite_falg = DB::queryFirstColumn(
                             "SELECT COUNT(*) as count FROM fsd10_tango.favorite_recipe WHERE user_id = %i AND recipe_id = %i",
@@ -151,6 +160,7 @@ include "includes/header.php";
                     ?>
                     <br>
                     <?php
+                        //check whether the user is logged in, if yes, enable add favorite recipe button and remove favorite recipe button
                         if (isset($user_id) && !empty($user_id)) {
                             if ($favorite_falg[0] > 0) {
                     ?>
@@ -164,7 +174,8 @@ include "includes/header.php";
                         <button id="btnAddFavorite" name="btnAddFavorite" class="btn btn-primary">Add favorite</button>
                     </form>
                     <?php
-                            }    
+                            } 
+                        // if user not logged in, disable add favorite recipe button   
                         } else {
                     ?>
                     <form class="add-favorite-form" id="add_favorite_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
@@ -178,6 +189,7 @@ include "includes/header.php";
         </div>
     </div>
 
+    <!-- display recipe description -->
     <div class="card mt-3 mb-3">
         <div class="card-header">
             <h4>DESCRIPTION</h4>
@@ -194,6 +206,7 @@ include "includes/header.php";
         </div>
     </div>
 
+    <!-- display recipe material -->
     <div class="card mt-3 mb-3">
         <div class="card-header">
             <h4>MATERIAL</h4>
@@ -205,6 +218,7 @@ include "includes/header.php";
         </div>
     </div>
 
+    <!-- display recipe instruction -->
     <div class="card mt-3 mb-3">
         <div class="card-header">
             <h4>INSTRUCTION</h4>
@@ -216,6 +230,7 @@ include "includes/header.php";
         </div>
     </div>
 
+    <!-- let user leave recipe review -->
     <h4>Reviews</h4>
     <form id="add_review_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <div class="mb-3">
@@ -226,9 +241,15 @@ include "includes/header.php";
             <textarea id="add_review" name="add_review" class="form-control" placeholder="Leave a comment here" style="height: 100px" required></textarea>
             <label for="add_review">Comments</label>
         </div>
-        <?php if (isset($user_id) && !empty($user_id)) { ?>
+        <?php 
+            // if user is logged in, enable submit button
+            if (isset($user_id) && !empty($user_id)) { 
+        ?>
         <button type="submit" class="btn btn-primary" id="btnLeaveReview" name="btnLeaveReview">Submit</button>
-        <?php } else { ?>
+        <?php 
+            // if user is not logged in, disable submit button
+            } else { 
+        ?>
         <button type="submit" class="btn btn-primary" id="btnLeaveReview" name="btnLeaveReview" disabled>Submit</button>
         <?php } ?>
     
@@ -236,6 +257,7 @@ include "includes/header.php";
 
     <div class="reviews-display mt-3" style="border-top: 3px solid rgba(252, 171, 23, 255);">
 
+    <!-- retrieve review information from database -->
     <?php foreach ($review_ids as $review_id) {
         //get review information
         $review_item = DB::queryFirstRow("SELECT * FROM fsd10_tango.review WHERE review_id = %i", $review_id["review_id"]);

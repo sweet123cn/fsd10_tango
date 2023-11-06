@@ -3,6 +3,7 @@
 // automatically load any library required from composer
 require "dbConnection.php"; //connect to db
 
+//initialize the user_id
 $user_id = "";
 
 //get the logged in user_id
@@ -14,8 +15,7 @@ else {
     $home_logger->notice("SESSION user_id is not set");
 }
 
-//unset($_SESSION["home_filter_values"]);
-//check if the session is set,if not,initialize the session
+//check if the filter session variable is set,if not,initialize the session
 if (!isset($_SESSION["home_filter_values"])) {
     $_SESSION["home_filter_values"]["meal_selected"] = [
         "id" => "",
@@ -31,6 +31,7 @@ if (!isset($_SESSION["home_filter_values"])) {
     ];
 }
 
+//check if the search string session variable is set,if not,initialize the session
 if (!isset($_SESSION["search_string"])) {
     $_SESSION["search_string"] = "Search for a recipe?";
 }
@@ -38,7 +39,7 @@ if (!isset($_SESSION["search_string"])) {
 //default image path
 $defaultImagePath ="https://www.budgetbytes.com/wp-content/uploads/2013/07/How-to-Calculate-Recipe-Costs-H.jpg";
 
-//set default value for meal, cuisine and ingredient, search_string
+//set default value for meal, cuisine and ingredient
 $meal_selected = "";
 $ingredient_selected = "";
 $cuisine_selected = "";
@@ -46,10 +47,10 @@ $meal_name = "";
 $ingredient_name = "";
 $cuisine_type = "";
 
+//check if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["btnFilter"])) {
         //save the selected meal, ingredient and cuisine values to the session
-
         //according to the selected meal, ingredient and cuisine to get the selected name or description
         if (isset($_POST["meal_selected"])) {
             $meal_selected = $_POST["meal_selected"];
@@ -77,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "name" => $cuisine_type["cuisine_type"],
             ];
         }
+    //if reset button is clicked, clear the session variable
     } elseif (isset($_POST["btnReset"])) {
         $meal_selected = "";
         $ingredient_selected = "";
@@ -102,11 +104,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 //get meal list from meal table
 $meal_items = DB::query("SELECT * FROM fsd10_tango.meal");
+
 //get ingredients list from ingredients table
 $ingredients_items = DB::query("SELECT * FROM fsd10_tango.ingredients");
+
 //get cuisine list from cuisine table
 $cuisine_items = DB::query("SELECT * FROM fsd10_tango.cuisine");
-//get recipe list from recipe table
+
+//according with the selected filter options and search string, retrive recipes data from recipe table
+//prepare the select conditions
 $conditions = [];
 
 if (!empty($_SESSION["home_filter_values"]["meal_selected"]["id"])) {
@@ -136,14 +142,16 @@ if (!empty($_SESSION["search_string"]) && $_SESSION["search_string"] != "Search 
         "%' )";
 }
 
+//prepare the query
 if (!empty($conditions)) {
     $whereClause = "WHERE " . implode(" AND ", $conditions);
     
     $query = "SELECT * FROM fsd10_tango.recipe $whereClause";
 
+    //execute the query
     $recipe_items = DB::query($query);
 
-    // Handle case where no results were found...
+    // if no recipe meet the query conditions, retrive all recipes
     if (empty($recipe_items)) {
         $recipe_items = DB::query("SELECT * FROM fsd10_tango.recipe");
         $_SESSION["home_filter_values"]["meal_selected"] = [
@@ -161,7 +169,7 @@ if (!empty($conditions)) {
         $_SESSION["search_string"] = "";
     }
 } else {
-    // Handle case where no conditions were provided...
+    // // if query condition is empty, retrive all recipes
     $recipe_items = DB::query("SELECT * FROM fsd10_tango.recipe");
         $_SESSION["home_filter_values"]["meal_selected"] = [
             "id" => "",
@@ -182,9 +190,9 @@ $currentNav == "home"
 ?>
 
     <div class="container mb-3 home" style="margin-top: 80px;">
-        <!-- <div class="row"> -->
         <form class="col-md-12 filters mt-5" id="recipe_filter_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <div class="row">
+                <!-- Meal dropdown list -->
                 <div class="col-md-3 form-group">
                     <select class="form-select bg-warning text-white" name="meal_selected" id="meal_selected">
                         <option value="meal" id="meal" disabled selected>
@@ -196,6 +204,7 @@ $currentNav == "home"
                     </select>
                 </div>
 
+                <!-- Ingredient dropdown list -->
                 <div class="col-md-3 form-group">
                     <select class="form-select bg-warning text-white" name="ingredient_selected" id="ingredient_selected">
                         <option value="ingredient" id="ingredient" disabled selected>
@@ -208,6 +217,7 @@ $currentNav == "home"
                     </select>
                 </div>
 
+                <!-- Cuisine dropdown list -->
                 <div class="col-md-3 form-group">
                     <select class="form-select bg-warning text-white" name="cuisine_selected" id="cuisine_selected">
                         <option value="cuisine" id="cuisine" disabled selected>
@@ -233,13 +243,14 @@ $currentNav == "home"
         </form>
     </div>
 
+    <!-- Display recipes list in BootStrap cards -->
     <div class="container mb-3">
         <div class="row">
             <?php foreach ($recipe_items as $item){ ?>
                 <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card h-100 text-center">
                         <div class="card-body d-flex flex-column align-items-center">
-                        <!-- if the recipe_image_path is null or empty then set the default image -->
+                            <!-- if the recipe_image_path is null or empty then set the default image -->
                             <?php if (!isset($item["recipe_image_path"]) || $item["recipe_image_path"] == null ||strlen($item["recipe_image_path"]) == 0) {
                                 $item["recipe_image_path"] = $defaultImagePath;
                             } ?>
@@ -247,7 +258,9 @@ $currentNav == "home"
                                 <img src="<?= $item["recipe_image_path"] ?>" alt="recipe image" class="img-fluid" style="height: 250px;"/>
                             </a>
 
+                            <!-- display recipe name -->
                             <h6 class="card-title py-2"><a href="recipe_detail.php?recipe_id=<?= $item["recipe_id"] ?>"><?= $item["recipe_name"] ?></a></h6>
+                            <!-- display cooking time -->
                             <p class="card-text">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stopwatch" viewBox="0 0 16 16">
                                     <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"/>
@@ -257,6 +270,7 @@ $currentNav == "home"
                             </p>
                         </div>
 
+                        <!-- display rating -->
                         <div class="card-footer">
                             <?php for($i=1;$i<=5;$i++) {
                                 if($i<=$item["rating"]) {
@@ -268,8 +282,10 @@ $currentNav == "home"
 
                             <br>
 
+                            <!-- display favorite icon -->
                             <?php
                                 $favorite_falg = "";
+                                //check whether the user is logged in
                                 if (isset($user_id)) {
                                     $favorite_falg = DB::queryFirstColumn("SELECT COUNT(*) as count FROM fsd10_tango.favorite_recipe WHERE user_id = %i AND recipe_id = %i", $user_id, $item["recipe_id"]);
                         
